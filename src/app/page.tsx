@@ -82,16 +82,16 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[600px] lg:min-h-[700px] overflow-hidden">
+      <section className="relative min-h-[700px] lg:min-h-[850px] overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/hero-bg.png')" }}
         />
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-navy/60" />
+        <div className="absolute inset-0 bg-navy/45" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40 flex items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-52 lg:pt-60 pb-24 sm:pb-32 flex items-center">
           {/* Card */}
           <div className="bg-navy/80 backdrop-blur-md rounded-2xl p-8 sm:p-12 max-w-2xl border border-white/10 shadow-2xl">
             <p className="text-gold font-medium tracking-wider uppercase text-sm mb-4">

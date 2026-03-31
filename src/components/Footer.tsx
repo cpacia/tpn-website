@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const quickLinks = [
@@ -26,18 +27,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center font-serif font-bold text-navy text-lg">
-                T
-              </div>
-              <div>
-                <div className="font-serif text-lg font-semibold text-white leading-tight">
-                  Texas Philanthropy
-                </div>
-                <div className="text-gold text-xs tracking-widest uppercase">
-                  Network
-                </div>
-              </div>
+            <div className="mb-4">
+              <Image
+                src="/logo.png"
+                alt="Texas Philanthropy Network"
+                width={160}
+                height={70}
+                className="h-12 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-sm leading-relaxed mt-4">
               A collaborative alliance committed to addressing Texas&apos;s most

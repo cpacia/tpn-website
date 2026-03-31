@@ -82,20 +82,27 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-navy text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--color-navy-light)_0%,_transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--color-navy-light)_0%,_transparent_60%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
-          <div className="max-w-3xl">
+      <section className="relative min-h-[600px] lg:min-h-[700px] overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/hero-bg.png')" }}
+        />
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-navy/60" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40 flex items-center">
+          {/* Card */}
+          <div className="bg-navy/80 backdrop-blur-md rounded-2xl p-8 sm:p-12 max-w-2xl border border-white/10 shadow-2xl">
             <p className="text-gold font-medium tracking-wider uppercase text-sm mb-4">
               Making a Difference in Texas
             </p>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
               Building a Stronger,
               <br />
               <span className="text-gold">More Hopeful</span> Texas
             </h1>
-            <p className="text-white/70 text-lg sm:text-xl leading-relaxed mb-10 max-w-2xl">
+            <p className="text-white/70 text-lg sm:text-xl leading-relaxed mb-10">
               A collaborative alliance committed to addressing Texas&apos;s most
               pressing social challenges through direct, transparent community
               support.

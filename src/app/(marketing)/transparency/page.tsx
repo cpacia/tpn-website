@@ -1,153 +1,20 @@
 import Link from "next/link";
 import { ArrowRight, DollarSign, Heart, CheckCircle } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
-const donations = [
-  {
-    description:
-      "Donated gifts for Christmas to a single mother with 4 children fulfilling their entire wishlist",
-    amount: "$2,500",
-    category: "Supporting Childhood",
-  },
-  {
-    description:
-      "Paid an outstanding amount on an electric bill for a Texas based mother of two",
-    amount: "$500",
-    category: "Family Support",
-  },
-  {
-    description:
-      "Donated a couple of meal cards for a Texas family whose mother is battling cancer",
-    amount: "$150",
-    category: "Family Support",
-  },
-  {
-    description:
-      "Donated to help with funds for a Texas family's funeral expenses",
-    amount: "$50",
-    category: "Family Support",
-  },
-  {
-    description:
-      "Donated to Special Reach in Texas to help disabled children go to special camps",
-    amount: "$3,500",
-    category: "Supporting Childhood",
-  },
-  {
-    description:
-      "Purchased 2 Baby Travel Systems for expecting families in Texas",
-    amount: "$200",
-    category: "Family Support",
-  },
-  {
-    description:
-      "Purchased 1 gift off of a Texas mother's baby gift registry",
-    amount: "",
-    category: "Family Support",
-  },
-  {
-    description: "Donated Christmas and Birthday gifts for children",
-    amount: "$1,600",
-    category: "Supporting Childhood",
-  },
-  {
-    description: "Paid rent for single mothers in need",
-    amount: "$825",
-    category: "Domestic Violence",
-  },
-  {
-    description: "Donated grocery money to families in Texas",
-    amount: "$350",
-    category: "Childhood Hunger",
-  },
-  {
-    description: "Donated personal care items to students in need",
-    amount: "$150",
-    category: "Supporting Childhood",
-  },
-  {
-    description:
-      "Donated Texas Flood Relief cleaning supplies and tools",
-    amount: "$75",
-    category: "Flood Relief",
-  },
-  {
-    description:
-      "Donated 1 package of diapers to Texas Flood Relief victims",
-    amount: "",
-    category: "Flood Relief",
-  },
-  {
-    description:
-      "Donated funds for teenager moving out into their first apartment as an adult",
-    amount: "$350",
-    category: "Family Support",
-  },
-  {
-    description:
-      "Donated clothes for interviews/job/work for a young adult who could not afford it",
-    amount: "$72",
-    category: "Family Support",
-  },
-  {
-    description:
-      "Donated backpacks and supplies for children who could not afford it",
-    amount: "$200",
-    category: "Supporting Childhood",
-  },
-  {
-    description:
-      "Purchased school books and supplies for those in need",
-    amount: "$862.57",
-    category: "Supporting Childhood",
-  },
-  {
-    description:
-      "Donated holiday gift baskets for college students who didn't have families to visit during their holiday breaks",
-    amount: "$600",
-    category: "Supporting Childhood",
-  },
-  {
-    description:
-      "Paid rent to help a single mom get an apartment and move out of a domestic violence shelter",
-    amount: "$6,000",
-    category: "Domestic Violence",
-  },
-  {
-    description:
-      "Facilitated the purchase and donation of bulk personal care items, bedding, dinnerware, inspirational materials, and comfort items via our philanthropic donation network",
-    amount: "",
-    category: "Community Support",
-  },
-];
+export const dynamic = "force-dynamic";
 
-const operatingExpenses = [
-  {
-    description:
-      "Salary to Caitlin Williams for page creation/editing of website, facilitation of all gifts and donations, fundraising, social media content, and managing/recruiting interns",
-    amount: "$16,370",
-  },
-  {
-    description: "360 Digital Media LLC — website design and launch",
-    amount: "$699",
-  },
-  {
-    description: "Cogburn Logistics",
-    amount: "$105",
-  },
-];
+export default async function TransparencyPage() {
+  const [donations, expenses] = await Promise.all([
+    prisma.transparencyDonation.findMany({ orderBy: { sortOrder: "asc" } }),
+    prisma.transparencyExpense.findMany({ orderBy: { sortOrder: "asc" } }),
+  ]);
 
-export default function TransparencyPage() {
   const totalDonations = donations
-    .filter((d) => d.amount)
-    .reduce((sum, d) => {
-      const num = parseFloat(d.amount.replace(/[$,]/g, ""));
-      return sum + num;
-    }, 0);
+    .filter((d) => d.amount != null)
+    .reduce((sum, d) => sum + (d.amount ?? 0), 0);
 
-  const totalOperating = operatingExpenses.reduce((sum, e) => {
-    const num = parseFloat(e.amount.replace(/[$,]/g, ""));
-    return sum + num;
-  }, 0);
+  const totalOperating = expenses.reduce((sum, e) => sum + e.amount, 0);
 
   return (
     <>
@@ -181,9 +48,7 @@ export default function TransparencyPage() {
                 <div className="text-2xl font-bold text-navy">
                   ${totalDonations.toLocaleString()}
                 </div>
-                <div className="text-sm text-warm-gray">
-                  Direct Donations
-                </div>
+                <div className="text-sm text-warm-gray">Direct Donations</div>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -194,9 +59,7 @@ export default function TransparencyPage() {
                 <div className="text-2xl font-bold text-navy">
                   {donations.length}
                 </div>
-                <div className="text-sm text-warm-gray">
-                  Acts of Giving
-                </div>
+                <div className="text-sm text-warm-gray">Acts of Giving</div>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -205,9 +68,7 @@ export default function TransparencyPage() {
               </div>
               <div>
                 <div className="text-2xl font-bold text-navy">100%</div>
-                <div className="text-sm text-warm-gray">
-                  Accountability
-                </div>
+                <div className="text-sm text-warm-gray">Accountability</div>
               </div>
             </div>
           </div>
@@ -231,9 +92,9 @@ export default function TransparencyPage() {
           </div>
 
           <div className="space-y-4">
-            {donations.map((donation, index) => (
+            {donations.map((donation) => (
               <div
-                key={index}
+                key={donation.id}
                 className="bg-white rounded-xl p-6 shadow-sm border border-cream-dark flex flex-col sm:flex-row sm:items-center gap-4"
               >
                 <div className="flex-1">
@@ -244,9 +105,9 @@ export default function TransparencyPage() {
                     {donation.category}
                   </span>
                 </div>
-                {donation.amount && (
+                {donation.amount != null && (
                   <div className="text-xl font-bold text-navy font-serif shrink-0">
-                    {donation.amount}
+                    ${donation.amount.toLocaleString()}
                   </div>
                 )}
               </div>
@@ -272,16 +133,16 @@ export default function TransparencyPage() {
           </div>
 
           <div className="space-y-4">
-            {operatingExpenses.map((expense, index) => (
+            {expenses.map((expense) => (
               <div
-                key={index}
+                key={expense.id}
                 className="bg-cream/50 rounded-xl p-6 border border-cream-dark flex flex-col sm:flex-row sm:items-center gap-4"
               >
                 <p className="text-navy font-medium flex-1">
                   {expense.description}
                 </p>
                 <div className="text-xl font-bold text-navy font-serif shrink-0">
-                  {expense.amount}
+                  ${expense.amount.toLocaleString()}
                 </div>
               </div>
             ))}

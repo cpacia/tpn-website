@@ -23,28 +23,39 @@ export function Header() {
     <>
       <header className="absolute top-0 left-0 right-0 z-50 text-white overflow-visible">
         {/* Logo - desktop: top left, mobile (home only): centered */}
-        <Link
-          href="/"
-          className={`absolute z-20 lg:top-4 lg:left-8 ${
+        <div
+          className={`absolute z-20 lg:top-4 lg:left-8 pointer-events-none ${
             isHome
               ? "block top-4 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-8"
               : "hidden lg:block top-4 left-8"
           }`}
           style={{ width: 370, height: 190 }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt="Texas Philanthropy Network"
-            style={{ width: 370, height: 190, objectFit: "contain" }}
-          />
-        </Link>
+          <Link href="/" className="pointer-events-auto inline-block">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Texas Philanthropy Network"
+              style={{ width: 370, height: 190, objectFit: "contain" }}
+            />
+          </Link>
+        </div>
 
-        {/* Nav bar */}
-        <div className="relative z-10">
+        {/* Mobile hamburger - above logo */}
+        <div className="lg:hidden absolute top-0 right-0 z-50 p-4">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="p-2 text-white/80 hover:text-white"
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
+
+        {/* Desktop Nav bar */}
+        <div className="relative z-10 hidden lg:block">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Desktop */}
-            <div className="hidden lg:flex items-center justify-end h-16 gap-6">
+            <div className="flex items-center justify-end h-16 gap-6">
               <nav className="flex items-center gap-1">
                 {navLinks.map((link) => (
                   <Link
@@ -74,17 +85,6 @@ export function Header() {
                   Donate
                 </Link>
               </div>
-            </div>
-
-            {/* Mobile hamburger */}
-            <div className="lg:hidden flex items-center justify-end h-16">
-              <button
-                onClick={() => setMobileOpen(true)}
-                className="p-2 text-white/80 hover:text-white"
-                aria-label="Open menu"
-              >
-                <Menu size={24} />
-              </button>
             </div>
           </div>
         </div>

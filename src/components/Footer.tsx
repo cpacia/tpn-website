@@ -93,10 +93,10 @@ export function Footer() {
               <li className="flex items-start gap-3 text-sm">
                 <Mail size={16} className="mt-0.5 text-gold shrink-0" />
                 <a
-                  href="mailto:admin@texasphilanthropynetwork.com"
+                  href="mailto:admin@texasphilanthropynetwork.org"
                   className="hover:text-gold transition-colors"
                 >
-                  admin@texasphilanthropynetwork.com
+                  admin@texasphilanthropynetwork.org
                 </a>
               </li>
               <li className="flex items-start gap-3 text-sm">

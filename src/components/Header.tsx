@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, Facebook, Instagram } from "lucide-react";
+import { Menu, X, Facebook } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -12,20 +12,6 @@ const navLinks = [
   { href: "/requests", label: "Requests" },
   { href: "/contact", label: "Contact" },
 ];
-
-function XIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -67,31 +53,13 @@ export function Header() {
             {/* Social Links + Donate */}
             <div className="flex items-center gap-2">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/people/Texas-Philanthropy-Network/61562782527365/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-white/50 hover:text-white transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook size={18} />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-white/50 hover:text-white transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram size={18} />
-              </a>
-              <a
-                href="https://x.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-white/50 hover:text-white transition-colors"
-                aria-label="X"
-              >
-                <XIcon size={16} />
               </a>
               <Link
                 href="/donate"
@@ -137,9 +105,7 @@ export function Header() {
               Donate
             </Link>
             <div className="flex items-center gap-4 px-4 pt-4 border-t border-white/10 mt-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white"><Facebook size={20} /></a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white"><Instagram size={20} /></a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white"><XIcon size={18} /></a>
+              <a href="https://www.facebook.com/people/Texas-Philanthropy-Network/61562782527365/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white"><Facebook size={20} /></a>
             </div>
           </nav>
         </div>

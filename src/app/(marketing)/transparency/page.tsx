@@ -39,7 +39,7 @@ export default async function TransparencyPage() {
       {/* Summary Stats */}
       <section className="relative -mt-1 bg-cream">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
-          <div className="bg-white rounded-2xl shadow-lg border border-cream-dark p-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="bg-white rounded-b-2xl shadow-lg border border-cream-dark p-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center">
                 <DollarSign size={24} className="text-gold-dark" />

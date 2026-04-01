@@ -21,6 +21,7 @@ const causes = [
       "Providing meals and resources to ensure no Texas child goes hungry.",
     color: "bg-amber-50 text-amber-700",
     iconBg: "bg-amber-100",
+    href: "/about#childhood-hunger",
   },
   {
     icon: Shield,
@@ -29,6 +30,7 @@ const causes = [
       "Supporting survivors and working toward safe communities for all families.",
     color: "bg-purple-50 text-purple-700",
     iconBg: "bg-purple-100",
+    href: "/about#domestic-violence",
   },
   {
     icon: Heart,
@@ -37,6 +39,7 @@ const causes = [
       "Promoting mental health awareness and providing crisis support resources.",
     color: "bg-rose-50 text-rose-700",
     iconBg: "bg-rose-100",
+    href: "/about#suicide-prevention",
   },
   {
     icon: Ribbon,
@@ -45,6 +48,7 @@ const causes = [
       "Advocating for survivors and funding education and prevention programs.",
     color: "bg-teal-50 text-teal-700",
     iconBg: "bg-teal-100",
+    href: "/about#sexual-assault",
   },
   {
     icon: Brain,
@@ -53,6 +57,7 @@ const causes = [
       "Supporting individuals and families affected by autism across Texas.",
     color: "bg-blue-50 text-blue-700",
     iconBg: "bg-blue-100",
+    href: "/about#autism",
   },
   {
     icon: HandHeart,
@@ -61,6 +66,7 @@ const causes = [
       "Helping those affected by PTSD access treatment, support, and understanding.",
     color: "bg-emerald-50 text-emerald-700",
     iconBg: "bg-emerald-100",
+    href: "/about#ptsd",
   },
   {
     icon: Star,
@@ -69,6 +75,7 @@ const causes = [
       "Empowering children to pursue their potential through mentorship and resources.",
     color: "bg-orange-50 text-orange-700",
     iconBg: "bg-orange-100",
+    href: "/about#childhood-dreams",
   },
 ];
 
@@ -196,7 +203,7 @@ export default function Home() {
                   {cause.description}
                 </p>
                 <Link
-                  href="/about"
+                  href={cause.href}
                   className="inline-flex items-center text-sm font-medium text-gold-dark hover:text-gold group-hover:translate-x-1 transition-all"
                 >
                   Learn more

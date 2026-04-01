@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, DollarSign, Heart, CheckCircle } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = {
+  title: "Transparency",
+  description: "See exactly where every dollar goes. Complete financial transparency from the Texas Philanthropy Network.",
+};
 
 export const dynamic = "force-dynamic";
 

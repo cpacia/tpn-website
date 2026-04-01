@@ -1,10 +1,40 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://texasphilanthropynetwork.org";
+
 export const metadata: Metadata = {
-  title: "Texas Philanthropy Network",
+  title: {
+    default: "Texas Philanthropy Network",
+    template: "%s | Texas Philanthropy Network",
+  },
   description:
     "A collaborative alliance committed to addressing Texas's most pressing social challenges.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "Texas Philanthropy Network",
+    description:
+      "A collaborative alliance committed to addressing Texas's most pressing social challenges.",
+    url: siteUrl,
+    siteName: "Texas Philanthropy Network",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "Texas Philanthropy Network",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Texas Philanthropy Network",
+    description:
+      "A collaborative alliance committed to addressing Texas's most pressing social challenges.",
+    images: ["/api/og"],
+  },
 };
 
 export default function RootLayout({

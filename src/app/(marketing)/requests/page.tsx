@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Heart } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { RequestCard } from "@/components/RequestCard";
+
+export const metadata: Metadata = {
+  title: "Requests for Assistance",
+  description: "View and support real needs from members of our Texas community. Your generosity can make a direct impact.",
+};
 
 export const dynamic = "force-dynamic";
 

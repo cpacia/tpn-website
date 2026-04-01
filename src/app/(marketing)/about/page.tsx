@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FocusAreaCard } from "@/components/FocusAreaCard";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Learn about the Texas Philanthropy Network's mission and seven focus areas addressing Texas's most pressing social challenges.",
+};
 
 const focusAreas = [
   {

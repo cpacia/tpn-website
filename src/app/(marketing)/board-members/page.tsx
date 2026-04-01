@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, User } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Board Members",
+  description: "Meet the dedicated individuals who guide the Texas Philanthropy Network's mission.",
+};
 
 const boardMembers = [
   {

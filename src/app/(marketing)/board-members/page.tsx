@@ -19,6 +19,7 @@ const boardMembers = [
   {
     name: "Jim Cogburn",
     role: "Treasurer",
+    photo: "/jim-cogburn.png",
     bio: "Jim Cogburn is a prominent philanthropist and advocate for community development in Texas. With a career spanning over two decades, he has made significant contributions to various sectors, including education, healthcare, and social services. As the founder of the Cogburn Foundation, Jim focuses on innovative solutions to pressing social issues, partnering with local organizations to enhance their impact.",
     extended:
       "A graduate of Abilene Christian University, Jim is deeply committed to fostering collaboration among nonprofits and driving sustainable change. He serves on multiple boards, where he champions initiatives that promote equity and access for underserved populations. Outside of his philanthropic endeavors, Jim enjoys exploring Texas's natural beauty and supporting local arts and culture.",

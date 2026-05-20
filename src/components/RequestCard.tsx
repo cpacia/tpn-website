@@ -17,6 +17,7 @@ interface RequestCardProps {
 const presetAmounts = [25, 50, 100, 250];
 
 export function RequestCard({
+  id,
   title,
   description,
   requestedAmount,
@@ -29,6 +30,8 @@ export function RequestCard({
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(50);
   const [customAmount, setCustomAmount] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const descriptionIsLong = description.length > 150;
 
   const progress =
@@ -39,11 +42,29 @@ export function RequestCard({
   const remaining = Math.max(0, requestedAmount - fundedAmount);
   const donationAmount = selectedAmount ?? (parseFloat(customAmount) || 0);
 
-  function handleDonate() {
-    // TODO: Wire up to Stripe
-    alert(
-      `Stripe integration coming soon!\n\nDonating $${donationAmount} to: ${title}`
-    );
+  async function handleDonate() {
+    if (donationAmount <= 0 || submitting) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: donationAmount,
+          frequency: "one-time",
+          publicRequestId: id,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Unable to start checkout");
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -165,16 +186,23 @@ export function RequestCard({
 
             <button
               onClick={handleDonate}
-              disabled={donationAmount <= 0}
+              disabled={donationAmount <= 0 || submitting}
               className="w-full py-3 bg-gold hover:bg-gold-light text-navy font-bold rounded-lg transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
             >
               <Heart size={16} />
-              Donate ${donationAmount > 0 ? donationAmount.toLocaleString() : ""}
+              {submitting
+                ? "Redirecting…"
+                : `Donate ${donationAmount > 0 ? `$${donationAmount.toLocaleString()}` : ""}`}
             </button>
+
+            {error && (
+              <p className="text-sm text-red-700 text-center">{error}</p>
+            )}
 
             <button
               onClick={() => setExpanded(false)}
-              className="w-full text-sm text-warm-gray hover:text-navy transition-colors"
+              disabled={submitting}
+              className="w-full text-sm text-warm-gray hover:text-navy transition-colors disabled:opacity-50"
             >
               Cancel
             </button>

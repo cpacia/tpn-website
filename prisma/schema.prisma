@@ -57,4 +57,27 @@ model PublicRequest {
   imageUrl        String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  donations       Donation[]
+}
+
+model Donation {
+  id                    String         @id @default(cuid())
+  amount                Float
+  currency              String         @default("usd")
+  frequency             String         @default("one-time")
+  category              String?
+  status                String         @default("pending")
+  donorEmail            String?
+  donorName             String?
+  stripeSessionId       String?        @unique
+  stripePaymentIntentId String?        @unique
+  stripeSubscriptionId  String?
+  stripeCustomerId      String?
+  publicRequestId       String?
+  publicRequest         PublicRequest? @relation(fields: [publicRequestId], references: [id], onDelete: SetNull)
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  @@index([publicRequestId])
+  @@index([stripeSubscriptionId])
 }

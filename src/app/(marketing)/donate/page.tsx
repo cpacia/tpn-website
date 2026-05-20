@@ -21,6 +21,8 @@ export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(100);
   const [customAmount, setCustomAmount] = useState("");
   const [frequency, setFrequency] = useState<"one-time" | "monthly">("one-time");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const donationAmount = selectedAmount ?? (parseFloat(customAmount) || 0);
 
@@ -34,11 +36,29 @@ export default function DonatePage() {
     setSelectedAmount(null);
   }
 
-  function handleDonate() {
-    // TODO: Wire up to Stripe
-    alert(
-      `Stripe integration coming soon!\n\nCategory: ${selectedCategory}\nAmount: $${donationAmount}\nFrequency: ${frequency}`
-    );
+  async function handleDonate() {
+    if (donationAmount <= 0 || submitting) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: donationAmount,
+          frequency,
+          category: selectedCategory,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Unable to start checkout");
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -180,13 +200,17 @@ export default function DonatePage() {
               </div>
               <button
                 onClick={handleDonate}
-                disabled={donationAmount <= 0}
+                disabled={donationAmount <= 0 || submitting}
                 className="w-full py-4 bg-gold hover:bg-gold-light text-navy font-bold rounded-xl transition-colors text-lg disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
               >
                 <Heart size={20} />
-                Donate ${donationAmount > 0 ? donationAmount.toLocaleString() : ""}
-                {frequency === "monthly" ? " / month" : ""}
+                {submitting
+                  ? "Redirecting…"
+                  : `Donate ${donationAmount > 0 ? `$${donationAmount.toLocaleString()}` : ""}${frequency === "monthly" ? " / month" : ""}`}
               </button>
+              {error && (
+                <p className="text-sm text-red-700 text-center mt-3">{error}</p>
+              )}
               <p className="text-xs text-warm-gray text-center mt-4">
                 Payments are securely processed via Stripe. You will be
                 redirected to complete your donation.
